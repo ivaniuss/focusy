@@ -9,11 +9,8 @@ import { Pomodoro } from "@/components/Pomodoro";
 import { ThreeDScene } from "@/components/ThreeDScene";
 
 const scenes = [
-  { name: "Study Room", modelPath: "/level-react-draco.glb" , color: "bg-blue-500" },
-  { name: "Nature", modelPath: "/escenario1.glb", color: "bg-green-500" },
-  { name: "Cafe", modelPath: "/prueba.glb", color: "bg-red-500" },
+  { name: "Study Room", modelPath: "/classroom_default.glb" , color: "bg-blue-500" },
   { name: "Library", modelPath: "/duk.glb", color: "bg-yellow-500" },
-  { name: "Cube", modelPath: "/cube.glb", color: "bg-purple-500" },
 ];
 
 export function Studio() {
