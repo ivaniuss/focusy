@@ -13,6 +13,7 @@ const scenes = [
   { name: "Nature", modelPath: "/escenario1.glb", color: "bg-green-500" },
   { name: "Cafe", modelPath: "/prueba.glb", color: "bg-red-500" },
   { name: "Library", modelPath: "/duk.glb", color: "bg-yellow-500" },
+  { name: "Cube", modelPath: "/cube.glb", color: "bg-purple-500" },
 ];
 
 export function Studio() {
