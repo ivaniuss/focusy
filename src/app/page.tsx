@@ -1,10 +1,8 @@
-'use client'
-import { Estudio_3d } from "@/components/estudio-3d";
-
+import { Studio } from "@/components/Studio";
 export default function Home() {
   return (
     <div>
-      <Estudio_3d />
+      <Studio />
     </div>
   );
 }
