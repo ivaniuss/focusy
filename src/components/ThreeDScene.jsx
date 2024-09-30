@@ -14,7 +14,7 @@ export const ThreeDScene = ({ scenes, currentSceneIndex }) => {
           <Level modelPath = {scenes[currentSceneIndex].modelPath} />          
           <meshStandardMaterial color="lightgray" />
         </mesh>
-        <Environment preset="city"  blur={1} />
+        <Environment preset="city" background blur={1} />
         <PerspectiveCamera makeDefault position={[0, 0, 18.5]} />
       </Suspense>
     </Canvas>
