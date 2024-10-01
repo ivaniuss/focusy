@@ -11,6 +11,7 @@ import { ThreeDScene } from "@/components/ThreeDScene";
 const scenes = [
   { name: "Study Room", modelPath: "/classroom_default.glb" , color: "bg-blue-500" },
   { name: "Library", modelPath: "/duk.glb", color: "bg-yellow-500" },
+  { name: "Kitchen", modelPath: "/blendercubo.glb", color: "bg-red-500" },
 ];
 
 export function Studio() {
