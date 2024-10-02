@@ -25,10 +25,10 @@ const CameraManager = () => {
       maxZoom={3}
       polarRotateSpeed={-0.3}
       azimuthRotateSpeed={-0.3}
-      // mouseButtons={{
-      //   left: 1,
-      //   wheel: 16,
-      // }}
+      mouseButtons={{
+        left: 1,
+        wheel: 16,
+      }}
       touches={{
         one: 31,
         two: 512,
