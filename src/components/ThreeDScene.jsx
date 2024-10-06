@@ -1,16 +1,15 @@
 "use client";
 import { Canvas } from "@react-three/fiber";
 import { CameraControls, Gltf } from "@react-three/drei";
+import { Cubohueco2 } from "@/components/Cubohueco2";
 
 export const ThreeDScene = ({ scenes, currentSceneIndex }) => {
   return (
     <div className="w-full h-screen">
       <Canvas camera={{ position: [0, 0, 0.0001] }}>
         <CameraManager />
-        <Gltf
-          src={scenes[currentSceneIndex].modelPath}
-          position={[0.2, -1.7, -2]}
-        />
+        <ambientLight intensity={1.5} />
+        <Cubohueco2 position={[0.2, -1.7, -2]} />
       </Canvas>
     </div>
   );
