@@ -1,6 +1,6 @@
 "use client";
 import { Canvas } from "@react-three/fiber";
-import { Environment, CameraControls, Gltf } from "@react-three/drei";
+import { CameraControls, Gltf } from "@react-three/drei";
 
 export const ThreeDScene = ({ scenes, currentSceneIndex }) => {
   return (
