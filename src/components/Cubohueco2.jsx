@@ -5,15 +5,17 @@ Command: npx gltfjsx@6.5.2 public/cubohueco3.glb
 
 import React from 'react'
 import { useGraph } from '@react-three/fiber'
-import { useGLTF, useAnimations } from '@react-three/drei'
+// import { useGLTF, useAnimations } from '@react-three/drei'
+import { useGLTF } from '@react-three/drei'
 import { SkeletonUtils } from 'three-stdlib'
 
 export function Cubohueco2(props) {
   const group = React.useRef()
-  const { scene, animations } = useGLTF('/cubohueco3.glb')
+  // const { scene, animations } = useGLTF('/cubohueco3.glb')
+  const { scene } = useGLTF('/cubohueco3.glb')
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene])
   const { nodes, materials } = useGraph(clone)
-  const { actions } = useAnimations(animations, group)
+  // const { actions } = useAnimations(animations, group)
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Scene">
