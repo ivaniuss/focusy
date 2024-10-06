@@ -34,3 +34,68 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+```mermaid
+graph TD;
+    %% Frontend
+    Start([Inicio]) -->|Usuario selecciona archivo o arrastra| FileSelection[Seleccionar archivo]
+    FileSelection --> CheckFileType[Verificar tipo de archivo]
+    CheckFileType -->|Tipo válido| UploadType[Seleccionar tipo de subida]
+    UploadType -->|Nuevo archivo| NewFileFrontend[Nuevo archivo]
+    UploadType -->|Reemplazar existente| ReplaceFileFrontend[Seleccionar archivo existente a reemplazar]
+
+    %% Backend
+    NewFileFrontend -->|Enviar archivo a backend| SendToBackend[POST /upload]
+    ReplaceFileFrontend -->|Enviar archivo y ID del archivo a reemplazar| SendToBackendReplace[POST /replace]
+
+    %% Procesamiento Backend
+    SendToBackend --> ValidateFileBackend[Verificar archivo y tamaño]
+    SendToBackendReplace --> ValidateFileBackend
+    ValidateFileBackend -->|Archivo válido| StoreFileBackend[Guardar archivo en servidor]
+    ValidateFileBackend -->|Archivo inválido| ErrorBackend[Devolver error]
+
+    StoreFileBackend --> UpdateDatabaseBackend[Actualizar base de datos con la nueva ruta del archivo]
+    UpdateDatabaseBackend --> SuccessResponseBackend[Devolver respuesta de éxito al frontend]
+
+    %% Frontend Resultados
+    SuccessResponseBackend --> ShowSuccessFrontend[Mostrar mensaje de éxito al usuario]
+    ErrorBackend --> ShowErrorFrontend[Mostrar error de validación al usuario]
+```
+
+```mermaid
+sequenceDiagram
+    participant Usuario
+    participant Frontend
+    participant Backend
+    participant BaseDeDatos
+
+    %% Usuario selecciona archivo en el frontend
+    Usuario->>Frontend: Selecciona/arrastra un archivo
+    Frontend-->>Usuario: Muestra archivo seleccionado
+
+    %% Usuario rellena información y envía
+    Usuario->>Frontend: Rellena información (usuario, contraseña, tipo de subida)
+    Usuario->>Frontend: Envía formulario (subir archivo)
+    Frontend->>Frontend: Verifica tipo y tamaño de archivo
+    Frontend->>Backend: POST /upload con archivo e información
+
+    %% Backend recibe el archivo
+    Backend->>Backend: Verifica archivo (tipo, tamaño)
+    Backend->>BaseDeDatos: Validar si es reemplazo o nuevo archivo
+    alt Nuevo archivo
+        BaseDeDatos-->>Backend: Insertar nueva entrada en base de datos
+    else Reemplazo de archivo
+        BaseDeDatos-->>Backend: Actualizar archivo existente
+    end
+    
+    %% Backend guarda el archivo y actualiza base de datos
+    Backend->>Backend: Guarda archivo en servidor o nube
+    Backend->>BaseDeDatos: Actualiza base de datos con ruta del archivo
+    BaseDeDatos-->>Backend: Confirmación de éxito
+
+    %% Respuesta al frontend
+    Backend->>Frontend: Respuesta de éxito o error
+
+    %% Frontend muestra resultado
+    Frontend-->>Usuario: Muestra mensaje de éxito o error
+```

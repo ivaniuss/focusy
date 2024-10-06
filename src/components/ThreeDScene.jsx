@@ -8,7 +8,7 @@ export const ThreeDScene = ({ scenes, currentSceneIndex }) => {
       <Canvas camera={{ position: [0, 0, 0.0001] }}>
         <CameraManager />
         <Environment preset="sunset" />
-        <ambientLight intensity={1} color="pink" />
+        <ambientLight intensity={0.5} color="pink" />
         <Gltf
           src={scenes[currentSceneIndex].modelPath}
           position={[0.2, -1.7, -2]}
