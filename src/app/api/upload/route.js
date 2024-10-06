@@ -37,9 +37,9 @@ export async function POST(req) {
       }
 
       // Validar tamaño de archivo (por ejemplo, máximo 5 MB)
-      const maxFileSize = 5 * 1024 * 1024; // 5 MB
+      const maxFileSize = 100 * 1024 * 1024; // 5 MB
       if (file.size > maxFileSize) {
-        errors.push('File size exceeds the limit of 5MB.');
+        errors.push('File size exceeds the limit of 100MB.');
       }
     }
 
