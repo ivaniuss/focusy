@@ -9,7 +9,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { toast } from "@/hooks/use-toast"
 
 // Simulación de archivos existentes
 const existingFiles = [
@@ -47,13 +46,9 @@ const FileUploadComponent = () => {
       });
 
       const data = await response.json();
-      if (response.ok) {
-        toast({ title: 'Éxito', description: data.message });
-      } else {
-        toast({ title: 'Error', description: data.error });
-      }
+      console.log('data', data);
     } catch (error) {
-      toast({ title: 'Error', description: `Se produjo un error: ${error.message}` });
+      console.error('Error:', error);
     }
   }
 
