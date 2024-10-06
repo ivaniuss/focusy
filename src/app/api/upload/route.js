@@ -2,6 +2,14 @@
 
 import fs from 'fs';
 import path from 'path';
+import cloudinary from 'cloudinary';
+
+// Configura Cloudinary con las variables de entorno
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export const dynamic = 'force-static';
 
@@ -15,9 +23,6 @@ export async function POST(req) {
     const file = formData.get('file');
     const username = formData.get('username');
     const password = formData.get('password');
-    const uploadType = formData.get('uploadType');
-
-    console.log('api', { file, username, password, uploadType });
 
     // Validaciones
     const errors = [];
@@ -46,10 +51,6 @@ export async function POST(req) {
       errors.push('No password provided');
     }
 
-    if (!uploadType) {
-      errors.push('No uploadType provided');
-    }
-
     // Verificar credenciales
     if (username !== 'focusy' || password !== 'focus1') {
       errors.push('Invalid credentials');
@@ -67,13 +68,34 @@ export async function POST(req) {
       fs.mkdirSync(uploadDir);
     }
 
-    const filePath = path.join(uploadDir, 'cubohueco.glb');
+    // const filePath = path.join(uploadDir, 'cubohueco.glb');
 
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    fs.writeFileSync(filePath, buffer);
-    return Response.json({ ok: true, message: 'File uploaded successfully', fileName: file.name });
+    const uploadResponse = await new Promise((resolve, reject) => {
+      cloudinary.v2.uploader.upload_stream(
+        { 
+          resource_type: 'raw', // Tipo de archivo crudo (GLB, PDF, ZIP, etc.)
+          public_id: 'cubohueco.glb', // Este es el mismo public_id que se usará para sobrescribir
+          overwrite: true // Esto asegura que el archivo sea sobrescrito si ya existe
+        }, 
+        (error, result) => {
+          if (error) return reject(error);
+          resolve(result);
+        }
+      ).end(buffer);
+    });
+
+    return Response.json({
+      ok: true,
+      message: 'File uploaded successfully to Cloudinary',
+      url: uploadResponse.secure_url, // URL del archivo subido
+      fileName: file.name,
+    });
+
+    // fs.writeFileSync(filePath, buffer);
+    // return Response.json({ ok: true, message: 'File uploaded successfully', fileName: file.name });
     
   } catch (error) {
     console.error('Error uploading file:', error);

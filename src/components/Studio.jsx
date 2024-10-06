@@ -9,7 +9,7 @@ import { Pomodoro } from "@/components/Pomodoro";
 import { ThreeDScene } from "@/components/ThreeDScene";
 
 const scenes = [
-  { name: "Kitchen", modelPath: "/cubohueco.glb", color: "bg-red-500" },
+  { name: "Kitchen", modelPath: "https://res.cloudinary.com/drub7p38t/raw/upload/v1728250216/cubohueco.glb", color: "bg-red-500" },
   { name: "Study Room", modelPath: "/classroom_default.glb" , color: "bg-blue-500" },
   { name: "Library", modelPath: "/duk.glb", color: "bg-yellow-500" },
 ];

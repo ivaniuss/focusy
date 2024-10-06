@@ -7,22 +7,13 @@ import { Upload, File } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 // Simulación de archivos existentes
-const existingFiles = [
-  { id: "1", name: "document1.pdf" },
-  { id: "2", name: "image1.jpg" },
-  { id: "3", name: "spreadsheet1.xlsx" },
-]
 
 const FileUploadComponent = () => {
   const [file, setFile] = useState(null)
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const [uploadType, setUploadType] = useState("new")
-  const [selectedExistingFile, setSelectedExistingFile] = useState("")
 
   const onDrop = useCallback((acceptedFiles) => {
     setFile(acceptedFiles[0])
@@ -36,9 +27,8 @@ const FileUploadComponent = () => {
     formData.append('file', file);
     formData.append('username', username);
     formData.append('password', password);
-    formData.append('uploadType', uploadType);
     // Here would be the logic to upload the file
-    console.log('page', { file, username, password, uploadType, selectedExistingFile })
+    console.log('page', { file, username, password  })
     try {
       const response = await fetch('/api/upload', {
         method: 'POST',
@@ -96,35 +86,6 @@ const FileUploadComponent = () => {
           required
         />
       </div>
-
-      <RadioGroup value={uploadType} onValueChange={setUploadType}>
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="new" id="new" />
-          <Label htmlFor="new">Nuevo archivo</Label>
-        </div>
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="replace" id="replace" />
-          <Label htmlFor="replace">Reemplazar existente</Label>
-        </div>
-      </RadioGroup>
-
-      {uploadType === "replace" && (
-        <div className="space-y-2">
-          <Label htmlFor="existing-file">Selecciona archivo a reemplazar</Label>
-          <Select value={selectedExistingFile} onValueChange={setSelectedExistingFile}>
-            <SelectTrigger id="existing-file">
-              <SelectValue placeholder="Selecciona un archivo" />
-            </SelectTrigger>
-            <SelectContent>
-              {existingFiles.map((file) => (
-                <SelectItem key={file.id} value={file.id}>
-                  {file.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-      )}
 
       <Button type="submit" className="w-full">
         Subir archivo
