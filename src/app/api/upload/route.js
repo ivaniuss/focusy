@@ -77,6 +77,6 @@ export async function POST(req) {
     
   } catch (error) {
     console.error('Error uploading file:', error);
-    return Response.json({ ok: false, error: 'An unexpected error occurred' });
+    return Response.json({ ok: false, error: 'An unexpected error occurred', message: error.message });
   }
 }
