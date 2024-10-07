@@ -2,7 +2,7 @@
 import { Canvas } from "@react-three/fiber";
 // import { CameraControls, Gltf } from "@react-three/drei";
 // import { CameraControls } from "@react-three/drei";
-import { Cubohueco2 } from "@/components/Cubohueco2";
+import { Model } from "@/components/Model";
 import { OrbitControls } from "@react-three/drei";
 
 // export const ThreeDScene = ({ scenes, currentSceneIndex }) => {
@@ -11,7 +11,7 @@ export const ThreeDScene = () => {
     <div className="w-full h-screen">
       <Canvas camera={{ position: [0, 0, 0.0001] }}>
       <mesh>
-      <Cubohueco2 position={[0.2, -1.7, -2]} />
+      <Model position={[0.2, -1.7, -2]} />
       <OrbitControls />
       </mesh>
       </Canvas>
